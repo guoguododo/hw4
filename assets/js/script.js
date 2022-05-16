@@ -1,10 +1,3 @@
-const clickchoice = document.getElementById("clickchoice");
-
-let firstpage = {
-    intro: "Welcome to JS survey test, please press START to continue",
-    Continue : true
-}
-
 
 // select all elements
 const start = document.getElementById("start");
@@ -150,30 +143,54 @@ function checkAnswer(answer){
 
 // answer is correct
 function answerIsCorrect(){
-    document.getElementById(runningQuestion).style.backgroundColor = "#0f0";
-    result.innerHTML = "<p>"+ "correct" +"</p>";
+
+    result.innerHTML = "<p>"+ "correct !" +"</p>";
+    //clean out in half second
+    setTimeout(function(){
+        result.innerHTML = '';
+    }, 500);
 }
+
 
 // answer is Wrong
 function answerIsWrong(){
-    document.getElementById(runningQuestion).style.backgroundColor = "#f00";
-    result.innerHTML = "<p>"+ "wrong" +"</p>"
+    result.innerHTML = "<p>"+ "wrong !" +"</p>";
+//clean out in half second
+    setTimeout(function(){
+        result.innerHTML = '';
+    }, 500);
 }
 
 // score render
 function scoreRender(){
     scoreDiv.style.display = "block";
+
     
     // calculate the amount of question percent answered by the user
     const scorePerCent = Math.round(100 * score/questions.length);
-    
-    // choose the image based on the scorePerCent
-    let img = (scorePerCent >= 80) ? "img/5.png" :
-              (scorePerCent >= 60) ? "img/4.png" :
-              (scorePerCent >= 40) ? "img/3.png" :
-              (scorePerCent >= 20) ? "img/2.png" :
-              "img/1.png";
-    
-    scoreDiv.innerHTML = "<img src="+ img +">";
-    scoreDiv.innerHTML += "<p>"+ scorePerCent +"%</p>";
+     
+    scoreDiv.innerHTML += "<p>"+ "your score is " + scorePerCent +"%</p>";
 }
+
+todoForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    var todoText = todoInput.value.trim();
+    if (todoText === "") {
+      return;
+    }
+
+    todos.push(todoText);
+    todoInput.value = "";
+    storeTodos();
+
+    // and renders todos on the page
+    renderTodos();
+  });
+
+  var todos = [];
+
+  function storeTodos() {
+    // TODO: Describe the purpose of the following line of code.
+    // Set the todos to be stringified and saves them into todos in localStorage
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }

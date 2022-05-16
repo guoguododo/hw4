@@ -1,18 +1,22 @@
 
+
 // select all elements
 const start = document.getElementById("start");
 const quiz = document.getElementById("quiz");
 const question = document.getElementById("question");
-const qImg = document.getElementById("qImg");
 const choiceA = document.getElementById("A");
 const choiceB = document.getElementById("B");
 const choiceC = document.getElementById("C");
 const choiceD = document.getElementById("D");
 const counter = document.getElementById("counter");
-const timeGauge = document.getElementById("timeGauge");
 const progress = document.getElementById("progress");
 const scoreDiv = document.getElementById("scoreContainer");
 const result = document.getElementById("result");
+const input_group= document.getElementById("input_group");
+const submit = document.getElementById("submit");
+const studentname = document.getElementById("studentname");
+const scorerank = document.getElementById("scorerank");
+
 
 // create our questions
 let questions = [
@@ -95,27 +99,7 @@ function renderProgress(){
     }
 }
 
-// counter render
 
-function renderCounter(){
-    if(count <= questionTime){
-        counter.innerHTML = count;
-        timeGauge.style.width = count * gaugeUnit + "px";
-        count++
-    }else{
-        count = 0;
-        // change progress color to red
-        answerIsWrong();
-        if(runningQuestion < lastQuestion){
-            runningQuestion++;
-            renderQuestion();
-        }else{
-            // end the quiz and show the score
-            clearInterval(TIMER);
-            scoreRender();
-        }
-    }
-}
 
 // checkAnwer
 
@@ -136,7 +120,7 @@ function checkAnswer(answer){
         renderQuestion();
     }else{
         // end the quiz and show the score
-        clearInterval(TIMER);
+       
         scoreRender();
     }
 }
@@ -163,34 +147,46 @@ function answerIsWrong(){
 
 // score render
 function scoreRender(){
+    quiz.style.display = "none";
+
     scoreDiv.style.display = "block";
 
     
     // calculate the amount of question percent answered by the user
     const scorePerCent = Math.round(100 * score/questions.length);
      
-    scoreDiv.innerHTML += "<p>"+ "your score is " + scorePerCent +"%</p>";
+    scoreDiv.innerHTML += "<p>"+ "Well Done ! your score is " + scorePerCent +"%</p>";
 }
 
-todoForm.addEventListener("submit", function(event) {
-    event.preventDefault();
-    var todoText = todoInput.value.trim();
-    if (todoText === "") {
-      return;
-    }
 
-    todos.push(todoText);
-    todoInput.value = "";
-    storeTodos();
+submit.addEventListener("click", function(event) {
+    event.preventDefault();
+    
+    var studenttest =
+    {username : studentname.value.trim(),
+     userscore: score
+    };
+    
+    localStorage.setItem("studenttest", JSON.stringify(studenttest)); 
 
     // and renders todos on the page
-    renderTodos();
+    //renderTodos();
   });
 
-  var todos = [];
+//
+//  function savename() {
+ //   event.preventDefault();
 
-  function storeTodos() {
-    // TODO: Describe the purpose of the following line of code.
-    // Set the todos to be stringified and saves them into todos in localStorage
-    localStorage.setItem("todos", JSON.stringify(todos));
+  //    var studenttest =
+ //     {studentname : studentname.value,
+//       studentscore: score
+
+//      }
+     // Set the todos to be stringified and saves them into todos in localStorage
+ //   localStorage.setItem("studenttest", JSON.stringify(studenttest));
+ // }
+
+  function highestscore() {
+    var max=0;
+    max = math.max(score);
   }

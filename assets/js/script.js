@@ -162,30 +162,27 @@ function scoreRender(){
 submit.addEventListener("click", function(event) {
     event.preventDefault();
     
-    var studenttest =
-    {username : studentname.value.trim(),
-     userscore: score
-    };
-    
-    localStorage.setItem("studenttest", JSON.stringify(studenttest)); 
+    savename();
 
-    // and renders todos on the page
-    //renderTodos();
+  //  scoreDiv.style.display = "none";
+  //  start.style.display = "block";
+
   });
 
-//
-//  function savename() {
- //   event.preventDefault();
 
-  //    var studenttest =
- //     {studentname : studentname.value,
-//       studentscore: score
 
-//      }
-     // Set the todos to be stringified and saves them into todos in localStorage
- //   localStorage.setItem("studenttest", JSON.stringify(studenttest));
- // }
+ function savename() {
 
+      var studenttest =
+     {studentname : studentname.value,
+      studentscore: score
+
+      }
+    localStorage.setItem("studenttest", JSON.stringify(studenttest));
+ }
+
+
+ // try to get the highest score
   function highestscore() {
     var max=0;
     max = math.max(score);

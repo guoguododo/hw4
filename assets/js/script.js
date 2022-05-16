@@ -1,5 +1,3 @@
-
-
 // select all elements
 const start = document.getElementById("start");
 const quiz = document.getElementById("quiz");
@@ -16,7 +14,6 @@ const input_group= document.getElementById("input_group");
 const submit = document.getElementById("submit");
 const studentname = document.getElementById("studentname");
 const scorerank = document.getElementById("scorerank");
-
 
 // create our questions
 let questions = [
@@ -156,19 +153,23 @@ function scoreRender(){
     const scorePerCent = Math.round(100 * score/questions.length);
      
     scoreDiv.innerHTML += "<p>"+ "Well Done ! your score is " + scorePerCent +"%</p>";
+    console.log(scorePerCent);
+
+    
 }
 
+console.log(submit);
 
-submit.addEventListener("click", function(event) {
-    event.preventDefault();
+//submit.addEventListener("click", function(event) {
+    //event.preventDefault();
     
-    savename();
-
+  //  savename();
+   // console.log(studenttest);
   //  scoreDiv.style.display = "none";
   //  start.style.display = "block";
 
-  });
-
+  //});
+  submit.addEventListener("click", savename);
 
 
  function savename() {
@@ -178,7 +179,10 @@ submit.addEventListener("click", function(event) {
       studentscore: score
 
       }
+      console.log(studenttest);
+
     localStorage.setItem("studenttest", JSON.stringify(studenttest));
+    
  }
 
 

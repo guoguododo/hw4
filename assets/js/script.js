@@ -13,7 +13,6 @@ const result = document.getElementById("result");
 const input_group= document.getElementById("input_group");
 const highscoreDiv = document.getElementById("highscoreContainer");
 const front = document.getElementById("front");
-const scorerank = document.getElementById("scorerank");
 
 // create our questions
 let questions = [
@@ -59,11 +58,6 @@ let questions = [
 
 const lastQuestion = questions.length - 1;
 let runningQuestion = 0;
-let count = 0;
-const questionTime = 10; // 10s
-const gaugeWidth = 150; // 150px
-const gaugeUnit = gaugeWidth / questionTime;
-let TIMER;
 let score = 0;
 
 // render a question
@@ -149,14 +143,12 @@ function scoreRender(){
     scoreDiv.style.display = "block";
 
     
-    // calculate the amount of question percent answered ]y the user
     let scorePerCent = Math.round(100 * score/questions.length);
      
     scoreDiv.innerHTML = "<p>"+ "Well Done ! your score is " + scorePerCent +"%</p>";
 
     scoreDiv.innerHTML +='<label for="studentname">' + 'your name is: ' + '</label>';
     scoreDiv.innerHTML +='<input type="text" name="studentname" id="studentname" placeholder="your name">';
-    console.log(scorePerCent);
     scoreDiv.innerHTML += '<button class="submit" id="submit"">submit</button>';
     const submit = document.getElementById("submit");
     const studentname = document.getElementById("studentname");
@@ -164,7 +156,7 @@ function scoreRender(){
     function savename() {
 
         var studenttest =
-       {studentname : studentname.value,
+       {studentname : studentname.ariaValueMax.trim(),
         studentscore: scorePerCent
   
         };
@@ -184,6 +176,7 @@ function scoreRender(){
 }
 
 
+// showbord and return to the quiz
 function highscoreRender(){
     quiz.style.display = "none";
     front.style.display ="none";
@@ -193,8 +186,7 @@ function highscoreRender(){
     let jsonarray = localStorage.getItem("studenttestarray");
     let retrievedObject = JSON.parse(jsonarray);
     console.log(retrievedObject);
-    highscoreDiv.innerHTML+="<p> Name:  " + retrievedObject[0].studentname +"</p>";
-    highscoreDiv.innerHTML+="<p> Percentage:  " + retrievedObject[0].studentscore +"</p>";
+    highscoreDiv.innerHTML="<p> Name:  " + retrievedObject[0].studentname +"</p><p> Percentage:  " + retrievedObject[0].studentscore +"</p>";
 
     highscoreDiv.innerHTML+= '<button class="Restart" id="Restart"">Go back</button>';
     const Restart = document.getElementById("Restart");

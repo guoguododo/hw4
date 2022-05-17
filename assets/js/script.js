@@ -11,8 +11,8 @@ const progress = document.getElementById("progress");
 const scoreDiv = document.getElementById("scoreContainer");
 const result = document.getElementById("result");
 const input_group= document.getElementById("input_group");
-const submit = document.getElementById("submit");
-const studentname = document.getElementById("studentname");
+const highscoreDiv = document.getElementById("highscoreContainer");
+const front = document.getElementById("front");
 const scorerank = document.getElementById("scorerank");
 
 // create our questions
@@ -82,11 +82,11 @@ start.addEventListener("click",startQuiz);
 // start quiz
 function startQuiz(){
     start.style.display = "none";
+    highscoreDiv.style.display ="none";
+    front.style.display ="none";
     renderQuestion();
     quiz.style.display = "block";
     renderProgress();
-  //  renderCounter();
-  //  TIMER = setInterval(renderCounter,1000); // 1000ms = 1s
 }
 
 // render progress
@@ -145,49 +145,67 @@ function answerIsWrong(){
 // score render
 function scoreRender(){
     quiz.style.display = "none";
-
+    front.style.display ="none";
     scoreDiv.style.display = "block";
 
     
-    // calculate the amount of question percent answered by the user
-    const scorePerCent = Math.round(100 * score/questions.length);
+    // calculate the amount of question percent answered ]y the user
+    let scorePerCent = Math.round(100 * score/questions.length);
      
-    scoreDiv.innerHTML += "<p>"+ "Well Done ! your score is " + scorePerCent +"%</p>";
-    console.log(scorePerCent);
+    scoreDiv.innerHTML = "<p>"+ "Well Done ! your score is " + scorePerCent +"%</p>";
 
+    scoreDiv.innerHTML +='<label for="studentname">' + 'your name is: ' + '</label>';
+    scoreDiv.innerHTML +='<input type="text" name="studentname" id="studentname" placeholder="your name">';
+    console.log(scorePerCent);
+    scoreDiv.innerHTML += '<button class="submit" id="submit"">submit</button>';
+    const submit = document.getElementById("submit");
+    const studentname = document.getElementById("studentname");
+    let studenttestarray=[];
+    function savename() {
+
+        var studenttest =
+       {studentname : studentname.value,
+        studentscore: scorePerCent
+  
+        };
+       console.log(studenttest);
+  
+       studenttestarray.push(studenttest);
+       localStorage.setItem("studenttestarray", JSON.stringify(studenttestarray));
+      
+   };
+
+   submit.addEventListener("click", function(event) {
+    event.preventDefault();
     
+   savename();
+   highscoreRender();
+  });
 }
 
-console.log(submit);
 
-//submit.addEventListener("click", function(event) {
-    //event.preventDefault();
+function highscoreRender(){
+    quiz.style.display = "none";
+    front.style.display ="none";
+    scoreDiv.style.display = "none";
+    highscoreDiv.style.display ="block";
     
-  //  savename();
-   // console.log(studenttest);
-  //  scoreDiv.style.display = "none";
-  //  start.style.display = "block";
+    let jsonarray = localStorage.getItem("studenttestarray");
+    let retrievedObject = JSON.parse(jsonarray);
+    console.log(retrievedObject);
+    highscoreDiv.innerHTML+="<p> Name:  " + retrievedObject[0].studentname +"</p>";
+    highscoreDiv.innerHTML+="<p> Percentage:  " + retrievedObject[0].studentscore +"</p>";
 
-  //});
-  submit.addEventListener("click", savename);
+    highscoreDiv.innerHTML+= '<button class="Restart" id="Restart"">Go back</button>';
+    const Restart = document.getElementById("Restart");
 
+    Restart.addEventListener("click", function(event) {
 
- function savename() {
+        event.preventDefault();
+        score = 0;
+        runningQuestion = 0;
+        startQuiz();
+      });
 
-      var studenttest =
-     {studentname : studentname.value,
-      studentscore: score
+}
 
-      }
-      console.log(studenttest);
-
-    localStorage.setItem("studenttest", JSON.stringify(studenttest));
-    
- }
-
-
- // try to get the highest score
-  function highestscore() {
-    var max=0;
-    max = math.max(score);
-  }

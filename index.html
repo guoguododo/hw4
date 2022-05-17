@@ -7,7 +7,12 @@
 </head>
 <body>
     <div id="container">
+        <div class = "front" id="front" style="display: block">
+
+        <article> This is the test for Javascript </article>
         <div id="start">Start!</div>
+    </div>
+
         <div class= "quiz" id="quiz" style="display: none">
             <div id="question"></div>
             <div id="choices">
@@ -17,20 +22,21 @@
                 <div class="choice" id="D" onclick="checkAnswer('D')"></div>
                 <div class="result" id="result"></div>
             </div>
-            <div id="timer">
-                <div id="counter"></div>
-                <div id="btimeGauge"></div>
-                <div id="timeGauge"></div>
-            </div>
+           
            <div id="progress"></div> 
         </div>
+        <form class="input_group">
         <div id="scoreContainer" style="display: none">
-            <form class="input_group">
-                <label for="studentname">your name is:</label>
-                <input type="text" name="studentname" id="studentname" placeholder="your name" />
-            </form>
-                <button type="submit" class="submit" id="submit"">submit</button>
+            
+             <!--     <label for="studentname">your name is:</label>-->
+              <!--    <textarea type="text" name="studentname" id="studentname" placeholder="your name"></textarea>-->
+          <!-- <a href="result.html">click </a>-->
+                
+          
         </div>
+       <!-- <button class="submit" id="submit"">submit</button>-->
+    </form>
+    <div id="highscoreContainer" style="display: none"></div>
     </div>
     <script src="assets/js/script.js"></script>
 </body>

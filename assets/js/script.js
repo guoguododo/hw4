@@ -75,10 +75,13 @@ start.addEventListener("click",startQuiz);
 
 // start quiz
 function startQuiz(){
+// hide start page
     start.style.display = "none";
+//hide score page
     highscoreDiv.style.display ="none";
     front.style.display ="none";
     renderQuestion();
+// show quiz page
     quiz.style.display = "block";
     renderProgress();
 }
@@ -98,11 +101,9 @@ function checkAnswer(answer){
     if( answer == questions[runningQuestion].correct){
         // answer is correct
         score++;
-        // change progress color to green
         answerIsCorrect();
     }else{
         // answer is wrong
-        // change progress color to red
         answerIsWrong();
     }
     count = 0;
@@ -120,7 +121,7 @@ function checkAnswer(answer){
 function answerIsCorrect(){
 
     result.innerHTML = "<p>"+ "correct !" +"</p>";
-    //clean out in half second
+    // clean result after 0.5 sec
     setTimeout(function(){
         result.innerHTML = '';
     }, 500);
@@ -130,7 +131,7 @@ function answerIsCorrect(){
 // answer is Wrong
 function answerIsWrong(){
     result.innerHTML = "<p>"+ "wrong !" +"</p>";
-//clean out in half second
+    // clean result after 0.5 sec
     setTimeout(function(){
         result.innerHTML = '';
     }, 500);
@@ -139,14 +140,17 @@ function answerIsWrong(){
 // score render
 function scoreRender(){
     quiz.style.display = "none";
+    // hide quiz page
     front.style.display ="none";
+    //show score page
+
     scoreDiv.style.display = "block";
 
     
     let scorePerCent = Math.round(100 * score/questions.length);
      
     scoreDiv.innerHTML = "<p>"+ "Well Done ! your score is " + scorePerCent +"%</p>";
-
+// insert user name to the html page
     scoreDiv.innerHTML +='<label for="studentname">' + 'your name is: ' + '</label>';
     scoreDiv.innerHTML +='<input type="text" name="studentname" id="studentname" placeholder="your name">';
     scoreDiv.innerHTML += '<button class="submit" id="submit"">submit</button>';
@@ -156,7 +160,7 @@ function scoreRender(){
     function savename() {
 
         var studenttest =
-       {studentname : studentname.ariaValueMax.trim(),
+       {studentname : studentname.value.trim(),
         studentscore: scorePerCent
   
         };
